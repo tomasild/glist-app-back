@@ -1,0 +1,10 @@
+# Ignorar archivos generados por el sistema operativo
+Thumbs.db
+.DS_Store
+
+# Ignorar carpetas generadas por Node.js / npm
+node_modules/
+npm-debug.log
+
+# Ignorar archivos generados por el IDE Visual Studio Code
+.vscode/
