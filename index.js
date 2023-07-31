@@ -2,10 +2,10 @@ const express = require("express");
 const mongoose = require("mongoose");
 const morgan = require("morgan");
 const cors = require("cors");
-const multer = require("multer");
+require("dotenv").config();
 const path = require("path");
 const fs = require("fs");
-require("dotenv").config();
+const multer = require("multer");
 
 const app = express();
 
@@ -23,7 +23,6 @@ const storage = multer.diskStorage({
     cb(null, uniqueSuffix + path.extname(file.originalname));
   },
 });
-
 
 const upload = multer({ storage });
 
@@ -43,11 +42,12 @@ app.use(cors());
 app.use(express.json());
 app.use(morgan("dev"));
 
-
 // Rutas: Definición de las rutas y sus controladores
-app.use("/api/songs", require("./src/routes/song"));
-app.use("/api/albums", require("./src/routes/album"));
+const songRoutes = require("./src/routes/songRoutes");
+const albumRoutes = require("./src/routes/albumRoutes");
 
+app.use("/api/songs", songRoutes);
+app.use("/api/albums", albumRoutes);
 
 // Iniciar el servidor y escuchar las solicitudes entrantes en el puerto especificado
 const PORT = process.env.PORT || 3000;
