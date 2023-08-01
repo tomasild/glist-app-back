@@ -1,4 +1,5 @@
 const Album = require("../models/album");
+const Song = require("../models/song")
 
 const albumController = {
   getAllAlbums: async (req, res) => {
@@ -61,12 +62,17 @@ const albumController = {
 
   deleteAlbum: async (req, res) => {
     try {
-      const deletedAlbum = await Album.findByIdAndRemove(req.params.id);
-      res.json(deletedAlbum);
+      const albumId = req.params.id;
+
+      // Eliminar todas las canciones asociadas al álbum primero
+      await Song.deleteMany({ albumId });
+
+      // Luego eliminar el álbum
+      await Album.deleteOne({ _id: albumId });
+
+      res.json({ message: "Álbum y canciones eliminadas correctamente" });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al eliminar el álbum", error: error.message });
+      res.status(500).json({ message: "Error al eliminar el álbum", error: error.message });
     }
   },
 };

@@ -1,4 +1,3 @@
-// src/models/album.js
 const mongoose = require("mongoose");
 
 const albumSchema = new mongoose.Schema(
@@ -10,6 +9,12 @@ const albumSchema = new mongoose.Schema(
     timestamps: true,
   }
 );
+
+albumSchema.pre("remove", async function (next) {
+  // Remove all associated songs when an album is deleted
+  await this.model("Song").deleteMany({ albumId: this._id });
+  next();
+});
 
 const Album = mongoose.model("Album", albumSchema);
 

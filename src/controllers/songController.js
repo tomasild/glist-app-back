@@ -15,7 +15,7 @@ const songController = {
 
   getSongById: async (req, res) => {
     try {
-      const song = await Song.findById(req.params.id).populate("album");
+      const song = await Song.findById(req.params.id).populate("albumId");
       if (!song) {
         return res.status(404).json({ message: "Canción no encontrada" });
       }
@@ -76,10 +76,10 @@ const songController = {
         {
           title,
           duration,
-          album: album._id,
+          albumId,
         },
         { new: true }
-      ).populate("album");
+      ).populate("albumId");
       res.json(updatedSong);
     } catch (error) {
       res
