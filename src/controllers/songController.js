@@ -1,6 +1,7 @@
 const Song = require("../models/song");
 const Album = require("../models/album");
 const mongoose = require("mongoose");
+const fs = require("fs");
 
 const songController = {
   getAllSongs: async (req, res) => {
@@ -37,6 +38,29 @@ const songController = {
         message: "Error al obtener las canciones del álbum",
         error: error.message,
       });
+    }
+  },
+
+  getAudioFile: async (req, res) => {
+    try {
+      const song = await Song.findById(req.params.id);
+      if (!song) {
+        return res.status(404).json({ message: "Canción no encontrada" });
+      }
+
+      // Convertir el BinData en un buffer
+      const audioBuffer = Buffer.from(song.file.buffer, "base64");
+
+      // Configurar los encabezados para el tipo de contenido y la descarga del archivo
+      res.set({
+        "Content-Type": "audio/mpeg", // Ajusta el tipo de contenido según el formato del archivo de audio
+        "Content-Disposition": `attachment; filename=${song.title}.mp3`, // Puedes ajustar el nombre de archivo aquí
+      });
+
+      // Transmitir el buffer del archivo de audio
+      res.send(audioBuffer);
+    } catch (error) {
+      res.status(500).json({ message: "Error al obtener el archivo de audio", error: error.message });
     }
   },
 
