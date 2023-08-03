@@ -8,7 +8,7 @@ const songSchema = new mongoose.Schema({
     ref: "Album",
     required: true,
   },
-  file: { type: String, required: true }, // Ruta del archivo de la canción en el sistema de archivos
+  file: { type: Buffer, required: true }, 
 }, {
   timestamps: true,
 });

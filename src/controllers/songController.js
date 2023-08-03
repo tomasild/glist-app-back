@@ -1,5 +1,6 @@
 const Song = require("../models/song");
 const Album = require("../models/album");
+const mongoose = require("mongoose");
 
 const songController = {
   getAllSongs: async (req, res) => {
@@ -42,7 +43,7 @@ const songController = {
   addSong: async (req, res) => {
     try {
       const { title, duration, albumId } = req.body;
-      const file = req.file.path;
+      const fileBuffer = req.file.buffer; // El archivo de música como buffer desde multer
 
       const album = await Album.findById(albumId);
       if (!album) {
@@ -53,7 +54,7 @@ const songController = {
         title,
         duration,
         albumId,
-        file,
+        file: fileBuffer, // Aquí guardamos el buffer del archivo en lugar de la ruta del sistema de archivos
       });
 
       const savedSong = await newSong.save();

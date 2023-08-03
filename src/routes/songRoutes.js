@@ -4,23 +4,8 @@ const path = require("path");
 const fs = require("fs");
 const router = express.Router();
 const songController = require("../controllers/songController");
+const upload = require("../middlewares/uploadMulter"); 
 
-// Configuración de multer para procesar el archivo de audio
-const storage = multer.diskStorage({
-  destination: (req, file, cb) => {
-    const songsUploadsDir = path.join(__dirname, "..", "..", "uploads", "songs");
-    if (!fs.existsSync(songsUploadsDir)) {
-      fs.mkdirSync(songsUploadsDir, { recursive: true });
-    }
-    cb(null, songsUploadsDir);
-  },
-  filename: (req, file, cb) => {
-    const uniqueSuffix = Date.now() + "-" + Math.round(Math.random() * 1e9);
-    cb(null, uniqueSuffix + path.extname(file.originalname));
-  },
-});
-
-const upload = multer({ storage });
 
 // Obtener todas las canciones
 router.get("/", songController.getAllSongs);
@@ -31,8 +16,8 @@ router.get("/:id", songController.getSongById);
 // Obtener todas las canciones de un álbum por su ID
 router.get("/album/:albumId", songController.getSongsByAlbumId);
 
-// Agregar una nueva canción
-router.post("/", upload.single("audioFile"), songController.addSong);
+// Ruta para crear una nueva canción (POST)
+router.post("/", upload.single("file"), songController.addSong); // Aquí se debe usar el controlador "addSong" para la ruta POST
 
 // Modificar una canción por su ID
 router.put("/:id", songController.updateSong);
