@@ -22,8 +22,6 @@ router.get("/:id/audio", songController.getAudioFile);
 // Ruta para crear una nueva canción (POST)
 router.post("/", upload.single("file"), songController.addSong); 
 
-// Modificar una canción por su ID
-router.put("/:id", songController.updateSong);
 
 // Ruta para eliminar una canción por su ID
 router.delete("/:id", songController.deleteSong);
