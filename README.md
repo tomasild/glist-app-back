@@ -11,7 +11,7 @@ estilos.
 ### Backend
 
 - Implementación REST utilizando Node.js con Express.js como servidor.
-- Base de datos MongoDB para almacenar las canciones y álbumes.
+- Base de datos Atlas MongoDB para almacenar las canciones y álbumes.
 - Manejo de archivos de audio utilizando `multer`.
 - Middleware de registro de solicitudes HTTP con `morgan`.
 - Middleware para habilitar CORS con `cors`.
@@ -19,8 +19,8 @@ estilos.
 ## Requisitos funcionales
 
 - La API sigue implementación REST y utiliza Node.js con Express.js como servidor.
-- Se ha utilizado MongoDB como base de datos.
-- Es necesario contar con Node.js y npm instalados para ejecutar el backend.
+- Se ha utilizado Atlas MongoDB como base de datos.
+- Es necesario contar con Node.js y npm instalados para ejecutar el backend y el frontend.
 - Se ha implementado el manejo de errores y respuestas adecuadas para las solicitudes.
 
 ## Clonar y ejecutar el proyecto
