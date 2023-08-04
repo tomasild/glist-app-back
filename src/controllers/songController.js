@@ -106,6 +106,36 @@ const songController = {
     }
   },
 
+
+  // Actualizar una canción por su ID
+  updateSong: async (req, res) => {
+    try {
+      // Verificar si la canción existe por su ID
+      const songId = req.params.id;
+      const song = await Song.findById(songId);
+      if (!song) {
+        // Si no se encuentra la canción, responder con un mensaje de error y código de estado 404 (Not Found)
+        return res.status(404).json({ message: "Canción no encontrada" });
+      }
+
+      // Extraer los campos actualizados del cuerpo de la solicitud
+      const { title, duration } = req.body;
+
+      // Actualizar los campos de la canción con los valores proporcionados
+      song.title = title;
+      song.duration = duration;
+
+      // Guardar los cambios en la base de datos
+      const updatedSong = await song.save();
+
+      // Responder con la canción actualizada y código de estado 200 (OK)
+      res.status(200).json(updatedSong);
+    } catch (error) {
+      // En caso de error, responder con un mensaje de error y código de estado 500 (Internal Server Error)
+      res.status(500).json({ message: "Error al actualizar la canción", error: error.message });
+    }
+  },
+
   // Eliminar una canción por su ID
   deleteSong: async (req, res) => {
     try {
