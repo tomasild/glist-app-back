@@ -9,9 +9,7 @@ const songController = {
       const songs = await Song.find().populate("albumId");
       res.json(songs);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al obtener las canciones", error: error.message });
+      res.status(500).json({ message: "Error al obtener las canciones", error: error.message });
     }
   },
 
@@ -23,9 +21,7 @@ const songController = {
       }
       res.json(song);
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al obtener la canción", error: error.message });
+      res.status(500).json({ message: "Error al obtener la canción", error: error.message });
     }
   },
 
@@ -34,10 +30,7 @@ const songController = {
       const songs = await Song.find({ albumId: req.params.albumId });
       res.json(songs);
     } catch (error) {
-      res.status(500).json({
-        message: "Error al obtener las canciones del álbum",
-        error: error.message,
-      });
+      res.status(500).json({ message: "Error al obtener las canciones del álbum", error: error.message });
     }
   },
 
@@ -107,20 +100,22 @@ const songController = {
       ).populate("albumId");
       res.json(updatedSong);
     } catch (error) {
-      res
-        .status(400)
-        .json({ message: "Error al modificar la canción", error: error.message });
+      res.status(400).json({ message: "Error al modificar la canción", error: error.message });
     }
   },
 
   deleteSong: async (req, res) => {
     try {
-      const deletedSong = await Song.findByIdAndRemove(req.params.id);
-      res.json(deletedSong);
+      const songId = req.params.id;
+      console.log("Deleting song with ID:", songId);
+
+      // Eliminar la canción de la base de datos utilizando el modelo Song
+      await Song.findByIdAndDelete(songId);
+
+      res.status(200).json({ message: "Canción eliminada correctamente" });
     } catch (error) {
-      res
-        .status(500)
-        .json({ message: "Error al eliminar la canción", error: error.message });
+      console.error("Error al eliminar la canción:", error);
+      res.status(500).json({ error: "Error al eliminar la canción" });
     }
   },
 };

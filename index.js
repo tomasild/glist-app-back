@@ -23,8 +23,8 @@ app.use(express.json());
 app.use(morgan("dev"));
 
 // Rutas: Definición de las rutas y sus controladores
-const songRoutes = require("./src/routes/songRoutes"); // Asegúrate de tener la ruta correcta
-const albumRoutes = require("./src/routes/albumRoutes"); // Asegúrate de tener la ruta correcta
+const songRoutes = require("./src/routes/songRoutes"); 
+const albumRoutes = require("./src/routes/albumRoutes"); 
 
 app.use("/api/songs", songRoutes);
 app.use("/api/albums", albumRoutes);

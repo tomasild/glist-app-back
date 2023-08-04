@@ -11,7 +11,7 @@ const albumSchema = new mongoose.Schema(
 );
 
 albumSchema.pre("remove", async function (next) {
-  // Remove all associated songs when an album is deleted
+  // Elimina todas las canciones asociadas al album
   await this.model("Song").deleteMany({ albumId: this._id });
   next();
 });
