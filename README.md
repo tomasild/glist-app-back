@@ -27,13 +27,21 @@ estilos.
 Para obtener el proyecto backend, sigue estos pasos:
 
 1. Clona el repositorio desde GitHub.
+   
 `git clone https://github.com/tomasild/groovelist-backend.git`
-2. Accede al directorio del backend.
+
+3. Accede al directorio del backend.
+
 `cd groovelist-backend`
-3. Instala las dependencias del backend.
+
+5. Instala las dependencias del backend.
+   
 `npm install`
-4. Configura las variables de entorno. Crea un archivo `.env` en el directorio raíz del backend y configura las siguientes variables:
+
+7. Configura las variables de entorno. Crea un archivo `.env` en el directorio raíz del backend y configura las siguientes variables:
+   
 `MONGODB_URI=mongodb+srv://tu_usuario:tu_contraseña@glist.a6stnww.mongodb.net/?retryWrites=true&w=majority`
+
 `PORT=3000`
 
 Reemplaza `tu_usuario` y `tu_contraseña` con tus credenciales de acceso a la base de datos MongoDB. La variable `PORT` establece el puerto en el que se ejecutará el servidor, en este caso, se ha configurado para escuchar en el puerto 3000.
